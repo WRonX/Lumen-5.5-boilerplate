@@ -88,7 +88,7 @@ if (env('APP_DEBUG')) {
     
     $app->configure('debugbar');
 }
-
+$app->configure('settings');
 
 /*
 |--------------------------------------------------------------------------
