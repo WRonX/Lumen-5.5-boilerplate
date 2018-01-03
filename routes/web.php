@@ -14,3 +14,11 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group(['middleware' => 'json'], function() use ($router)
+{
+    $router->post('/authenticate', [
+        'as'   => 'authenticate_user',
+        'uses' => 'AuthController@authenticate',
+    ]);
+});
