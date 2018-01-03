@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\User;
+use Faker\Generator as Faker;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -11,9 +14,17 @@
 |
 */
 
-$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->name,
-        'email' => $faker->email,
+$factory->define(User::class, function(Faker $faker)
+{
+    static $password;
+    static $activationToken;
+    
+    return
+    [
+        'email'            => $faker->unique()->safeEmail,
+        'password'         => $password ? : $password = app('hash')->make('password'),
+        'name'             => $faker->name,
+        'activation_token' => $activationToken ? : $activationToken = 'token',
+        'remember_token'   => str_random(32),
     ];
 });
